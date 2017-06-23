@@ -1,5 +1,7 @@
 # ember-resizable-table
 
+![Illustration](/documentation/assets/demo1.gif?raw=true "Optional Title")
+
 This README outlines the details of collaborating on this Ember addon.
 
 ## Installation
