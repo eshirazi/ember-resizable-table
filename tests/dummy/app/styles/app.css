@@ -1,0 +1,16 @@
+.main-table {
+  width: 400px;
+  height: 400px;
+  border-collapse: collapse;
+
+}
+
+.main-table td {
+  border: 3px solid #fff;
+}
+
+.col1 {  background: #0074D9; }
+.col2 {  background: #FF4136; }
+.col3 {  background: #85144b; }
+.col4 {  background: #39CCCC; }
+.col5 {  background: #01FF70; }
