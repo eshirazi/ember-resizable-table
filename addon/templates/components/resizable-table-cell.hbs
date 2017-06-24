@@ -1,14 +1,14 @@
 {{#unless (eq coordY 0)}}
-  <div style={{sashTopStyle}} onmousedown={{action "sashClicked" "top"}}></div>
+  <div style={{sashTopStyle}} onmousedown={{action sashClicked "top"}}></div>
 {{/unless}}
 {{#unless (eq (inc coordX colSpan) numColumns)}}
-  <div style={{sashRightStyle}} onmousedown={{action "sashClicked" "right"}}></div>
+  <div style={{sashRightStyle}} onmousedown={{action sashClicked "right"}}></div>
 {{/unless}}
 {{#unless (eq (inc coordY rowSpan) numRows)}}
-  <div style={{sashBottomStyle}} onmousedown={{action "sashClicked" "bottom"}}></div>
+  <div style={{sashBottomStyle}} onmousedown={{action sashClicked "bottom"}}></div>
 {{/unless}}
 {{#unless (eq coordX 0)}}
-  <div style={{sashLeftStyle}} onmousedown={{action "sashClicked" "left"}}></div>
+  <div style={{sashLeftStyle}} onmousedown={{action sashClicked "left"}}></div>
 {{/unless}}{{!--
 {{coordX}}, {{coordY}}<br>
 --}}{{yield}}

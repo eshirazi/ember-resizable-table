@@ -1,9 +1,12 @@
-/* globals $ */
 import Ember from "ember";
+import $ from "jquery";
 import layout from "../templates/components/resizable-table";
 import { clamp } from "ember-resizable-table/utils/clamp";
 
-export default Ember.Component.extend({
+const { get, set, Component, A: EmberArray, run } = Ember;
+const jDocument = $(document);
+
+export default Component.extend({
   layout,
   classNames: ["resizable-table"],
   tagName: "table",
@@ -20,13 +23,15 @@ export default Ember.Component.extend({
 
   init() {
     this._super(...arguments);
-    this.set("rows", Ember.A());
-    this.set("columnSizes", []);
-    this.set("rowSizes", []);
+    this._super(...arguments);
+    this.set('rows', EmberArray([]));
+    this.set('columnSizes', EmberArray([]));
+    this.set('rowSizes', EmberArray([]));
     this.set("coordToCell", {});
-    this.set("startResize", this.get("startResize").bind(this));
-    this.set("resizeMouseMove", this.get("resizeMouseMove").bind(this));
-    this.set("resizeMouseUp", this.get("resizeMouseUp").bind(this));
+
+    this.startResize = this.startResize.bind(this);
+    this.resizeMouseMove = this.resizeMouseMove.bind(this);
+    this.resizeMouseUp = this.resizeMouseUp.bind(this);
   },
 
   willDestroyElement() {
@@ -96,9 +101,10 @@ export default Ember.Component.extend({
     this.spreadColumnSizesEvenly();
     this.spreadRowSizesEvenly();
 
-    Ember.run.scheduleOnce("afterRender", this, function() {
+    run.scheduleOnce("afterRender", this, function() {
       while (deferredActions.length > 0) {
-        deferredActions.shift()();
+        const action = deferredActions.shift();
+        action();
       }
     });
 
@@ -108,9 +114,9 @@ export default Ember.Component.extend({
   spreadColumnSizesEvenly() {
     const count = this.get("numColumns");
     let size = 1.0 / count;
-    let sizes = [];
+    let sizes = EmberArray([]);
     for (let i = 0; i < count; i++) {
-      sizes.push({ size: size });
+      sizes.pushObject({ size });
     }
     this.set("columnSizes", sizes);
   },
@@ -118,9 +124,9 @@ export default Ember.Component.extend({
   spreadRowSizesEvenly() {
     const count = this.get("numRows");
     let size = 1.0 / count;
-    let sizes = [];
+    let sizes = EmberArray([]);
     for (let i = 0; i < count; i++) {
-      sizes.push({ size: size });
+      sizes.pushObject({ size });
     }
     this.set("rowSizes", sizes);
   },
@@ -166,14 +172,12 @@ export default Ember.Component.extend({
 
   installHooks() {
     this.uninstallHooks();
-    let jDocument = $(document);
     jDocument.on("mousemove", this.get("resizeMouseMove"));
     jDocument.on("mouseup", this.get("resizeMouseUp"));
     this.set("isResizing", true);
   },
 
   uninstallHooks() {
-    let jDocument = $(document);
     jDocument.off("mousemove", this.get("resizeMouseMove"));
     jDocument.off("mouseup", this.get("resizeMouseUp"));
     this.set("isResizing", false);
@@ -181,15 +185,17 @@ export default Ember.Component.extend({
 
   getSize(columnOrRow, index) {
     return columnOrRow === "row"
-      ? Ember.get(this.get("rowSizes")[index], "size")
-      : Ember.get(this.get("columnSizes")[index], "size");
+      ? get(this.rowSizes[index], "size")
+      : get(this.columnSizes[index], "size");
   },
 
   setSize(columnOrRow, index, newSize) {
     if (columnOrRow === "row") {
-      Ember.set(this.get("rowSizes")[index], "size", newSize);
+      const rowSizes = get(this, "rowSizes");
+      set(rowSizes[index], "size", newSize);
     } else {
-      Ember.set(this.get("columnSizes")[index], "size", newSize);
+      const columnSizes = get(this, "columnSizes");
+      set(columnSizes[index], "size", newSize);
     }
   },
 
@@ -204,7 +210,7 @@ export default Ember.Component.extend({
       before += this.getSize(resizeColumnOrRow, i);
     }
 
-    let pair =
+    const pair =
       this.getSize(resizeColumnOrRow, resizeIndex - 1) +
       this.getSize(resizeColumnOrRow, resizeIndex);
     let mouse;
