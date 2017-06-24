@@ -1,28 +1,53 @@
-# ember-resizable-table
+# Ember Resizable Table
 
-![Illustration](/documentation/assets/demo1.gif?raw=true "Optional Title")
+![Illustration](/documentation/assets/demo1.gif?raw=true "Illustration")
 
-This README outlines the details of collaborating on this Ember addon.
+Ember Resizable Table is a table component for Ember.js apps that allows users to resize the table's cells by dragging its borders. It's useful for creating split panels (i.e. for code editors).
 
 ## Installation
 
-* `git clone <repository-url>` this repository
-* `cd ember-resizable-table`
-* `npm install`
+To install Ember Resizable Table, simply run:
 
-## Running
+`ember install ember-resizable-table`
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+at the root of your Ember CLI project.
 
-## Running Tests
+## Usage Example
 
-* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
+A simple usage of a table with colorful table cells (this is the code for creating the animated illustration above):
 
-## Building
+.hbs:
+```handlebars
+{{#resizable-table class="main-table" as |table|}}
+  {{#table.tr as |row|}}
+    {{row.td class="color1" rowSpan=2}}
+    {{row.td class="color2"}}
+    {{row.td class="color3"}}
+  {{/table.tr}}
+  {{#table.tr as |row|}}
+    {{row.td class="color4" rowSpan=2 colSpan=2}}
+  {{/table.tr}}
+  {{#table.tr as |row|}}
+    {{row.td class="color5"}}
+  {{/table.tr}}
+{{/resizable-table}}
+```
 
-* `ember build`
+.css:
+```css
+.main-table {
+  width: 400px;
+  height: 400px;
+  border-collapse: collapse;
+}
 
-For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
+.main-table td {
+  border: 3px solid #fff;
+}
+
+.color1 {  background: #0074D9; }
+.color2 {  background: #FF4136; }
+.color3 {  background: #85144b; }
+.color4 {  background: #39CCCC; }
+.color5 {  background: #01FF70; }
+```
