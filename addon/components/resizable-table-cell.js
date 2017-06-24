@@ -183,29 +183,32 @@ export default Component.extend(InjectStyle, {
     this.reLayout();
   },
 
-  actions: {
-    sashClicked(sashType) {
-      let columnOrRow, index;
-      switch (sashType) {
-        case "top":
-          columnOrRow = "row";
-          index = this.get("coordY");
-          break;
-        case "right":
-          columnOrRow = "column";
-          index = this.get("coordX") + this.get("colSpan");
-          break;
-        case "bottom":
-          columnOrRow = "row";
-          index = this.get("coordY") + this.get("rowSpan");
-          break;
-        case "left":
-          columnOrRow = "column";
-          index = this.get("coordX");
-          break;
-      }
+  /**
+   * Actions
+   */
 
-      this.get("row.table.startResize")(columnOrRow, index);
+  sashClicked(sashType) {
+    let columnOrRow, index;
+    switch (sashType) {
+      case "top":
+        columnOrRow = "row";
+        index = this.get("coordY");
+        break;
+      case "right":
+        columnOrRow = "column";
+        index = this.get("coordX") + this.get("colSpan");
+        break;
+      case "bottom":
+        columnOrRow = "row";
+        index = this.get("coordY") + this.get("rowSpan");
+        break;
+      case "left":
+        columnOrRow = "column";
+        index = this.get("coordX");
+        break;
     }
+
+    const startResize = get(this, "row.table.startResize");
+    startResize(columnOrRow, index);
   }
 });
