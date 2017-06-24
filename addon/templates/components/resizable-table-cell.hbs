@@ -1,14 +1,14 @@
 {{#unless (eq coordY 0)}}
-  <div class="resizable-table-cell-sash top" onmousedown={{action "sashClicked" "top"}}></div>
+  <div style={{sashTopStyle}} onmousedown={{action "sashClicked" "top"}}></div>
 {{/unless}}
 {{#unless (eq (inc coordX colSpan) numColumns)}}
-  <div class="resizable-table-cell-sash right" onmousedown={{action "sashClicked" "right"}}></div>
+  <div style={{sashRightStyle}} onmousedown={{action "sashClicked" "right"}}></div>
 {{/unless}}
 {{#unless (eq (inc coordY rowSpan) numRows)}}
-  <div class="resizable-table-cell-sash bottom" onmousedown={{action "sashClicked" "bottom"}}></div>
+  <div style={{sashBottomStyle}} onmousedown={{action "sashClicked" "bottom"}}></div>
 {{/unless}}
 {{#unless (eq coordX 0)}}
-  <div class="resizable-table-cell-sash left" onmousedown={{action "sashClicked" "left"}}></div>
+  <div style={{sashLeftStyle}} onmousedown={{action "sashClicked" "left"}}></div>
 {{/unless}}{{!--
 {{coordX}}, {{coordY}}<br>
 --}}{{yield}}

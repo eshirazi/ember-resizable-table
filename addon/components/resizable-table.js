@@ -16,10 +16,11 @@ export default Ember.Component.extend({
   resizeColumnOrRow: undefined,
   resizeIndex: undefined,
   isResizing: false,
+  sashWidth: 7,
 
   init() {
     this._super(...arguments);
-    this.set('rows', []);
+    this.set('rows', Ember.A());
     this.set('columnSizes', []);
     this.set('rowSizes', []);
     this.set('coordToCell', {});
@@ -212,6 +213,6 @@ export default Ember.Component.extend({
 
   resizeMouseUp() {
     this.uninstallHooks();
-  }
+  },
 });
 

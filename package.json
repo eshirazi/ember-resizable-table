@@ -1,6 +1,6 @@
 {
   "name": "ember-resizable-table",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "A table with resizable cells component for Ember.js",
   "keywords": [
     "ember-addon"
@@ -31,7 +31,6 @@
     "ember-cli-eslint": "^3.0.0",
     "ember-cli-inject-live-reload": "^1.4.1",
     "ember-cli-qunit": "^4.0.0",
-    "ember-cli-sass": "^6.2.0",
     "ember-cli-shims": "^1.1.0",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-uglify": "^1.2.0",

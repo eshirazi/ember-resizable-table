@@ -9,7 +9,7 @@ export default Ember.Component.extend({
 
   init() {
     this._super();
-    this.set('cells', []);
+    this.set('cells', Ember.A());
   },
 
   reLayout() {
