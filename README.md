@@ -1,6 +1,6 @@
 # Ember Resizable Table
 
-![Illustration](/documentation/assets/demo1.gif?raw=true "Illustration")
+![Illustration](https://github.com/eshirazi/ember-resizable-table/raw/master/documentation/assets/demo1.gif)
 
 Ember Resizable Table is a table component for Ember.js apps that allows users to resize the table's cells by dragging its borders. It's useful for creating split panels (i.e. for code editors).
 
