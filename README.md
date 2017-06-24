@@ -51,3 +51,11 @@ A simple usage of a table with colorful table cells (this is the code for creati
 .color4 {  background: #39CCCC; }
 .color5 {  background: #01FF70; }
 ```
+
+## Example Project
+
+An example project can be found inside the `tests/dummy` folder of this addon: https://github.com/eshirazi/ember-resizable-table/tree/master/tests/dummy.
+
+## Contributions
+
+Any contributions are welcome :) Check out our [project page on Github](https://github.com/eshirazi/ember-resizable-table).
