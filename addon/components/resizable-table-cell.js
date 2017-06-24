@@ -167,9 +167,17 @@ export default Component.extend(InjectStyle, {
     }
   ),
 
+  /**
+   * Helpers
+   */
+
   reLayout() {
     this.get("row").reLayout();
   },
+
+  /**
+   * Life cycle
+   */
 
   didInsertElement() {
     this._super(...arguments);
@@ -208,7 +216,7 @@ export default Component.extend(InjectStyle, {
         break;
     }
 
-    const startResize = get(this, "row.table.startResize");
-    startResize(columnOrRow, index);
+    const table = get(this, "row.table");
+    table.startResize(columnOrRow, index);
   }
 });
