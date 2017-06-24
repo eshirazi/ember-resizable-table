@@ -3,7 +3,9 @@ import layout from "../templates/components/resizable-table-cell";
 import InjectStyle from "../mixins/inject-style";
 import { formatStyle } from "../utils/format-style";
 
-export default Ember.Component.extend(InjectStyle, {
+const { computed, get, Component } = Ember;
+
+export default Component.extend(InjectStyle, {
   layout,
   classNames: ["resizable-table-cell"],
   attributeBindings: ["colSpan:colspan", "rowSpan:rowspan"],
@@ -12,12 +14,12 @@ export default Ember.Component.extend(InjectStyle, {
   rowSpan: 1,
   coordX: undefined /* set by resizable-table */,
   coordY: undefined /* set by resizable-table */,
-  numColumns: Ember.computed.alias("row.table.numColumns"),
-  numRows: Ember.computed.alias("row.table.numRows"),
+  numColumns: computed.alias("row.table.numColumns"),
+  numRows: computed.alias("row.table.numRows"),
 
-  columnSizes: Ember.computed.alias("row.table.columnSizes"),
-  rowSizes: Ember.computed.alias("row.table.rowSizes"),
-  sashWidth: Ember.computed.alias("row.table.sashWidth"),
+  columnSizes: computed.alias("row.table.columnSizes"),
+  rowSizes: computed.alias("row.table.rowSizes"),
+  sashWidth: computed.alias("row.table.sashWidth"),
   sashDistance: 0,
 
   init() {
@@ -27,7 +29,7 @@ export default Ember.Component.extend(InjectStyle, {
     this.get("style");
   },
 
-  myWidth: Ember.computed(
+  myWidth: computed(
     "coordX",
     "coordY",
     "columnSizes",
@@ -48,13 +50,13 @@ export default Ember.Component.extend(InjectStyle, {
         if (cur === undefined) {
           return undefined;
         }
-        ret += Ember.get(cur, "size");
+        ret += get(cur, "size");
       }
       return ret;
     }
   ),
 
-  myHeight: Ember.computed(
+  myHeight: computed(
     "coordX",
     "coordY",
     "rowSizes",
@@ -75,13 +77,13 @@ export default Ember.Component.extend(InjectStyle, {
         if (cur === undefined) {
           return undefined;
         }
-        ret += Ember.get(cur, "size");
+        ret += get(cur, "size");
       }
       return ret;
     }
   ),
 
-  style: Ember.computed("myWidth", "myHeight", function() {
+  style: computed("myWidth", "myHeight", function() {
     return {
       position: "relative",
       width: `${this.get("myWidth") * 100.0}%`,
@@ -89,7 +91,7 @@ export default Ember.Component.extend(InjectStyle, {
     };
   }),
 
-  sashBaseStyle: Ember.computed(function() {
+  sashBaseStyle: computed(function() {
     return {
       position: "absolute",
       "user-select": "none",
@@ -97,7 +99,7 @@ export default Ember.Component.extend(InjectStyle, {
     };
   }),
 
-  sashTopStyle: Ember.computed(
+  sashTopStyle: computed(
     "sashWidth",
     "sashDistance",
     "baseSashStyle",
@@ -114,7 +116,7 @@ export default Ember.Component.extend(InjectStyle, {
     }
   ),
 
-  sashRightStyle: Ember.computed(
+  sashRightStyle: computed(
     "sashWidth",
     "sashDistance",
     "baseSashStyle",
@@ -131,7 +133,7 @@ export default Ember.Component.extend(InjectStyle, {
     }
   ),
 
-  sashBottomStyle: Ember.computed(
+  sashBottomStyle: computed(
     "sashWidth",
     "sashDistance",
     "baseSashStyle",
@@ -148,7 +150,7 @@ export default Ember.Component.extend(InjectStyle, {
     }
   ),
 
-  sashLeftStyle: Ember.computed(
+  sashLeftStyle: computed(
     "sashWidth",
     "sashDistance",
     "baseSashStyle",
