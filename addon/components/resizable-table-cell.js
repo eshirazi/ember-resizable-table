@@ -1,14 +1,14 @@
 import Ember from "ember";
 import layout from "../templates/components/resizable-table-cell";
-import InjectStyle from "../mixins/inject-style";
 import { formatStyle } from "../utils/format-style";
 
 const { computed, get, Component } = Ember;
+const { htmlSafe } = Ember.String;
 
-export default Component.extend(InjectStyle, {
+export default Component.extend({
   layout,
   classNames: ["resizable-table-cell"],
-  attributeBindings: ["colSpan:colspan", "rowSpan:rowspan"],
+  attributeBindings: ["colSpan:colspan", "rowSpan:rowspan", "htmlStyle:style"],
   tagName: "td",
   colSpan: 1,
   rowSpan: 1,
@@ -89,6 +89,15 @@ export default Component.extend(InjectStyle, {
       width: `${this.get("myWidth") * 100.0}%`,
       height: `${this.get("myHeight") * 100.0}%`
     };
+  }),
+
+  htmlStyle: computed("style", function() {
+    const styleObject = get(this, "style");
+    const styleAttribute = Object.keys(styleObject)
+      .map(key => `${key}: ${styleObject[key]};`)
+      .reduce((x, y) => x + y, "");
+
+    return htmlSafe(styleAttribute);
   }),
 
   sashBaseStyle: computed(function() {
