@@ -1,10 +1,8 @@
 import Ember from "ember";
-import $ from "jquery";
 import layout from "../templates/components/resizable-table";
 import { clamp } from "ember-resizable-table/utils/clamp";
 
 const { get, set, Component, A: EmberArray, run } = Ember;
-const jDocument = $(document);
 
 export default Component.extend({
   layout,
@@ -172,14 +170,14 @@ export default Component.extend({
 
   installHooks() {
     this.uninstallHooks();
-    jDocument.on("mousemove", this.get("resizeMouseMove"));
-    jDocument.on("mouseup", this.get("resizeMouseUp"));
+    document.addEventListener("mousemove", this.resizeMouseMove, false);
+    document.addEventListener("mouseup", this.resizeMouseUp, false);
     this.set("isResizing", true);
   },
 
   uninstallHooks() {
-    jDocument.off("mousemove", this.get("resizeMouseMove"));
-    jDocument.off("mouseup", this.get("resizeMouseUp"));
+    document.removeEventListener("mousemove", this.resizeMouseMove, false);
+    document.removeEventListener("mouseup", this.resizeMouseUp, false);
     this.set("isResizing", false);
   },
 
@@ -200,8 +198,9 @@ export default Component.extend({
   },
 
   resizeMouseMove(event) {
-    const $this = this.$();
-    const offset = $this.offset();
+    const { offsetLeft, offsetTop } = this.element;
+    const { width, height } = this.element.getBoundingClientRect();
+
     const resizeColumnOrRow = this.get("resizeColumnOrRow");
     const resizeIndex = this.get("resizeIndex");
 
@@ -216,9 +215,9 @@ export default Component.extend({
     let mouse;
 
     if (resizeColumnOrRow === "column") {
-      mouse = clamp((event.pageX - offset.left) / $this.width(), 0.0, 1.0);
+      mouse = clamp((event.pageX - offsetLeft) / width, 0.0, 1.0);
     } else {
-      mouse = clamp((event.pageY - offset.top) / $this.height(), 0.0, 1.0);
+      mouse = clamp((event.pageY - offsetTop) / height, 0.0, 1.0);
     }
 
     this.setSize(resizeColumnOrRow, resizeIndex - 1, mouse - before);
