@@ -92,12 +92,7 @@ export default Component.extend({
   }),
 
   htmlStyle: computed("style", function() {
-    const styleObject = get(this, "style");
-    const styleAttribute = Object.keys(styleObject)
-      .map(key => `${key}: ${styleObject[key]};`)
-      .reduce((x, y) => x + y, "");
-
-    return htmlSafe(styleAttribute);
+    return htmlSafe(formatStyle(this.get('style')));
   }),
 
   sashBaseStyle: computed(function() {
