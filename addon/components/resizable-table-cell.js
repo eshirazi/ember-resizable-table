@@ -92,7 +92,7 @@ export default Component.extend({
   }),
 
   htmlStyle: computed("style", function() {
-    return htmlSafe(formatStyle(this.get('style')));
+    return formatStyle(this.get('style'));
   }),
 
   sashBaseStyle: computed(function() {
