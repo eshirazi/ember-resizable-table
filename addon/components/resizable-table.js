@@ -25,6 +25,8 @@ export default Component.extend({
     this.set('rows', EmberArray([]));
     this.set('columnSizes', (this.get('columnSizes') ? this.get('columnSizes').map(size => ({size})) : EmberArray([])));
     this.set('rowSizes', (this.get('rowSizes') ? this.get('rowSizes').map(size => ({size})) : EmberArray([])));
+    this.set('isDefaultColumnSizes', this.get('columnSizes').length === 0 ? true : false);
+    this.set('isDefaultRowSizes', this.get('rowSizes').length === 0 ? true : false );
     this.set("coordToCell", {});
     this.startResize = this.startResize.bind(this);
     this.resizeMouseMove = this.resizeMouseMove.bind(this);
@@ -106,7 +108,7 @@ export default Component.extend({
   },
 
   spreadColumn() {
-    if(this.get('columnSizes').length === 0) {
+    if(this.get('isDefaultColumnSizes')) {
       const count = this.get("numColumns");
       let size = 1.0 / count;
       let sizes = EmberArray([]);
@@ -118,7 +120,7 @@ export default Component.extend({
   },
 
   spreadRow() {
-    if(this.get('rowSizes').length === 0) {
+    if(this.get('isDefaultRowSizes')) {
       const count = this.get("numRows");
       let size = 1.0 / count;
       let sizes = EmberArray([]);
