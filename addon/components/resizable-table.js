@@ -23,10 +23,9 @@ export default Component.extend({
     this._super(...arguments);
     this._super(...arguments);
     this.set('rows', EmberArray([]));
-    this.set('columnSizes', EmberArray([]));
-    this.set('rowSizes', EmberArray([]));
+    this.set('columnSizes', (this.get('columnSizes') ? this.get('columnSizes').map(size => ({size})) : EmberArray([])));
+    this.set('rowSizes', (this.get('rowSizes') ? this.get('rowSizes').map(size => ({size})) : EmberArray([])));
     this.set("coordToCell", {});
-
     this.startResize = this.startResize.bind(this);
     this.resizeMouseMove = this.resizeMouseMove.bind(this);
     this.resizeMouseUp = this.resizeMouseUp.bind(this);
@@ -96,9 +95,6 @@ export default Component.extend({
 
     this.set("coordToCell", coordToCell);
 
-    this.spreadColumnSizesEvenly();
-    this.spreadRowSizesEvenly();
-
     run.scheduleOnce("afterRender", this, function() {
       while (deferredActions.length > 0) {
         const action = deferredActions.shift();
@@ -109,24 +105,28 @@ export default Component.extend({
     return true;
   },
 
-  spreadColumnSizesEvenly() {
-    const count = this.get("numColumns");
-    let size = 1.0 / count;
-    let sizes = EmberArray([]);
-    for (let i = 0; i < count; i++) {
-      sizes.pushObject({ size });
+  spreadColumn() {
+    if(this.get('columnSizes').length === 0) {
+      const count = this.get("numColumns");
+      let size = 1.0 / count;
+      let sizes = EmberArray([]);
+      for (let i = 0; i < count; i++) {
+        sizes.pushObject({ size });
+      }
+      this.set("columnSizes", sizes);
     }
-    this.set("columnSizes", sizes);
   },
 
-  spreadRowSizesEvenly() {
-    const count = this.get("numRows");
-    let size = 1.0 / count;
-    let sizes = EmberArray([]);
-    for (let i = 0; i < count; i++) {
-      sizes.pushObject({ size });
+  spreadRow() {
+    if(this.get('rowSizes').length === 0) {
+      const count = this.get("numRows");
+      let size = 1.0 / count;
+      let sizes = EmberArray([]);
+      for (let i = 0; i < count; i++) {
+        sizes.pushObject({ size });
+      }
+      this.set("rowSizes", sizes);
     }
-    this.set("rowSizes", sizes);
   },
 
   reLayout() {
@@ -157,8 +157,8 @@ export default Component.extend({
     }
 
     if (this.buildCoordToCell()) {
-      this.spreadColumnSizesEvenly();
-      this.spreadRowSizesEvenly();
+      this.spreadColumn();
+      this.spreadRow();
     }
   },
 
