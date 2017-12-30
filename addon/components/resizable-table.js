@@ -1,6 +1,7 @@
 import Ember from "ember";
 import layout from "../templates/components/resizable-table";
 import { clamp } from "ember-resizable-table/utils/clamp";
+import {getElementOffset} from "../utils/dom";
 
 const { get, set, Component, A: EmberArray, run } = Ember;
 
@@ -206,7 +207,9 @@ export default Component.extend({
   },
 
   resizeMouseMove(event) {
-    const { offsetLeft, offsetTop } = this.element;
+    const offset = getElementOffset(this.element);
+    const offsetLeft = offset.left;
+    const offsetTop = offset.top;
     const { width, height } = this.element.getBoundingClientRect();
 
     const resizeColumnOrRow = this.get("resizeColumnOrRow");
