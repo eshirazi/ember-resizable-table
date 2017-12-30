@@ -52,6 +52,17 @@ A simple usage of a table with colorful table cells (this is the code for creati
 .color5 {  background: #01FF70; }
 ```
 
+## Initial Column and Row Sizes
+
+It's also possible to customize initial row and column sizes via the optional `initialColumnSizes` and `initialRowSizes` attributes.
+The following example uses the [Ember Array Helper](https://github.com/kellyselden/ember-array-helper):
+
+```handlebars
+{{#resizable-table initialRowSizes=(array 0.5 0.25 0.25) initialColumnSizes=(array 0.25 0.5 0.25) class="main-table" as |table|}}
+  ...
+{{/resizable-table}}
+```
+
 ## Example Project
 
 An example project can be found inside the `tests/dummy` folder of this addon: https://github.com/eshirazi/ember-resizable-table/tree/master/tests/dummy.
