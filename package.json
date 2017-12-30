@@ -1,6 +1,6 @@
 {
   "name": "ember-resizable-table",
-  "version": "0.7.5",
+  "version": "0.7.6",
   "description": "A table with resizable cells component for Ember.js",
   "keywords": [
     "ember-addon"
@@ -40,7 +40,8 @@
     "ember-resolver": "^4.0.0",
     "ember-source": "~2.13.0",
     "ember-welcome-page": "^3.0.0",
-    "loader.js": "^4.2.3"
+    "loader.js": "^4.2.3",
+    "ember-array-helper": "1.0.1"
   },
   "engines": {
     "node": ">= 4"

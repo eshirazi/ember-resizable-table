@@ -96,9 +96,6 @@ export default Component.extend({
 
     this.set("coordToCell", coordToCell);
 
-    this.spreadColumnSizesEvenly();
-    this.spreadRowSizesEvenly();
-
     run.scheduleOnce("afterRender", this, function() {
       while (deferredActions.length > 0) {
         const action = deferredActions.shift();
@@ -109,7 +106,12 @@ export default Component.extend({
     return true;
   },
 
-  spreadColumnSizesEvenly() {
+  resetColumnSizes() {
+    if (this.get("initialColumnSizes")) {
+      this.set("columnSizes", EmberArray(this.get("initialColumnSizes").map(item => ({size: item}))));
+      return;
+    }
+
     const count = this.get("numColumns");
     let size = 1.0 / count;
     let sizes = EmberArray([]);
@@ -119,7 +121,13 @@ export default Component.extend({
     this.set("columnSizes", sizes);
   },
 
-  spreadRowSizesEvenly() {
+  resetRowSizes() {
+    if (this.get("initialRowSizes")) {
+      this.set("rowSizes", EmberArray(this.get("initialRowSizes").map(item => ({size: item}))));
+      return;
+    }
+
+
     const count = this.get("numRows");
     let size = 1.0 / count;
     let sizes = EmberArray([]);
@@ -157,8 +165,8 @@ export default Component.extend({
     }
 
     if (this.buildCoordToCell()) {
-      this.spreadColumnSizesEvenly();
-      this.spreadRowSizesEvenly();
+      this.resetColumnSizes();
+      this.resetRowSizes();
     }
   },
 

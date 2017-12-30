@@ -1,4 +1,5 @@
-{{#resizable-table class="main-table" as |table|}}
+{{#resizable-table initialColumnSizes=(array 0.5 0.25 0.25) initialRowSizes=(array 0.25 0.5 0.25)
+                   class="main-table" as |table|}}
   {{#table.tr as |row|}}
     {{row.td class="col1" rowSpan=2}}
     {{row.td class="col2"}}
