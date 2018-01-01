@@ -67,6 +67,26 @@ The following example uses the [Ember Array Helper](https://github.com/kellyseld
 
 An example project can be found inside the `tests/dummy` folder of this addon: https://github.com/eshirazi/ember-resizable-table/tree/master/tests/dummy.
 
+## Events
+
+Event listeners are built to trigger Ember actions on component interactions and events.
+To add an event listener, simply add an event attribute:
+
+```handlebars
+{{#resizable-table 
+  onSizeChanged=(action "onSizeChanged")
+  class="main-table" as |table|}}
+  ...
+{{/resizable-table}}
+```
+
+### onSizeChanged(columnOrRow, index, newSize)
+
+Triggered whenever any column or row is resized.
+- columnOrRow - Determines whether a row or a column was resized. The only possible values are ["column", "row"]. 
+- index - A zero based index of the column or row that was resized.
+- newSize - The new size of the row or column as a fraction of the table size - a value between 0 and 1.
+
 ## Contributions
 
 Any contributions are welcome :) Check out our [project page on Github](https://github.com/eshirazi/ember-resizable-table).
