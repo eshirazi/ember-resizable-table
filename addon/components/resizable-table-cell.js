@@ -3,7 +3,6 @@ import layout from "../templates/components/resizable-table-cell";
 import { formatStyle } from "../utils/format-style";
 
 const { computed, get, Component } = Ember;
-const { htmlSafe } = Ember.String;
 
 export default Component.extend({
   layout,

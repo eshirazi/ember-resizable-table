@@ -204,6 +204,8 @@ export default Component.extend({
       const columnSizes = get(this, "columnSizes");
       set(columnSizes[index], "size", newSize);
     }
+
+    this.sendAction('onSizeChanged', columnOrRow, index, newSize);
   },
 
   resizeMouseMove(event) {
