@@ -14,3 +14,18 @@
 .col3 {  background: #85144b; }
 .col4 {  background: #39CCCC; }
 .col5 {  background: #01FF70; }
+
+.event-listener {
+  width: 20px;
+  height: 20px;
+  background-color: #FF4136;
+  border-radius: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  border: #444 1px solid;
+  transition: background-color 500ms;
+}
+
+.event-listener.active {
+  background-color: #01FF70;
+}
