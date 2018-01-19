@@ -12,6 +12,13 @@ To install Ember Resizable Table, simply run:
 
 at the root of your Ember CLI project.
 
+## Demo Application
+
+[A demo is available here](https://ember-resizable-table.herokuapp.com)
+
+The demo uses the code from the `tests/dummy` folder of this addon: https://github.com/eshirazi/ember-resizable-table/tree/master/tests/dummy.
+
+
 ## Usage Example
 
 A simple usage of a table with colorful table cells (this is the code for creating the animated illustration above):
@@ -58,14 +65,12 @@ It's also possible to customize initial row and column sizes via the optional `i
 The following example uses the [Ember Array Helper](https://github.com/kellyselden/ember-array-helper):
 
 ```handlebars
-{{#resizable-table initialRowSizes=(array 0.5 0.25 0.25) initialColumnSizes=(array 0.25 0.5 0.25) class="main-table" as |table|}}
+{{#resizable-table class="main-table"
+    initialRowSizes=(array 0.5 0.25 0.25) 
+    initialColumnSizes=(array 0.25 0.5 0.25) as |table|}}
   ...
 {{/resizable-table}}
 ```
-
-## Example Project
-
-An example project can be found inside the `tests/dummy` folder of this addon: https://github.com/eshirazi/ember-resizable-table/tree/master/tests/dummy.
 
 ## Events
 
@@ -90,3 +95,10 @@ Triggered whenever any column or row is resized.
 ## Contributions
 
 Any contributions are welcome :) Check out our [project page on Github](https://github.com/eshirazi/ember-resizable-table).
+
+### Demo Application
+
+The demo application uses the [Heroku Buildpack for Ember.js](https://github.com/heroku/heroku-buildpack-emberjs).
+
+Any changes to the master branch are automatically deployed to the demo application at: https://ember-resizable-table.herokuapp.com
+
