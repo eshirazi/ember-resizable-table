@@ -1,8 +1,8 @@
-import Ember from "ember";
+import { get, getProperties, computed } from "@ember/object";
+import { alias } from "@ember/object/computed";
+import Component from "@ember/component";
 import layout from "../templates/components/resizable-table-cell";
 import { formatStyle } from "../utils/format-style";
-
-const { computed, get, Component } = Ember;
 
 export default Component.extend({
   layout,
@@ -13,16 +13,45 @@ export default Component.extend({
   rowSpan: 1,
   coordX: undefined /* set by resizable-table */,
   coordY: undefined /* set by resizable-table */,
-  numColumns: computed.alias("row.table.numColumns"),
-  numRows: computed.alias("row.table.numRows"),
+  numColumns: alias("row.table.numColumns"),
+  numRows: alias("row.table.numRows"),
 
-  columnSizes: computed.alias("row.table.columnSizes"),
-  rowSizes: computed.alias("row.table.rowSizes"),
-  sashWidth: computed.alias("row.table.sashWidth"),
+  columnSizes: alias("row.table.columnSizes"),
+  rowSizes: alias("row.table.rowSizes"),
+  sashWidth: alias("row.table.sashWidth"),
   sashDistance: 0,
+
+  _aCondition: computed("coordY", function () {
+    return get(this, "coordY") !== 0;
+  }),
+
+  _bCondition: computed("coordX", "colSpan", "numColumns", function () {
+    const { coordX, colSpan, numColumns } = getProperties(
+      "coordX",
+      "colSpan",
+      "numColumns"
+    );
+
+    return Number(coordX) + Number(colSpan) !== Number(numColumns);
+  }),
+
+  _cCondition: computed("coordY", "rowSpan", "numRows", function () {
+    const { coordY, rowSpan, numRows } = getProperties(
+      "coordY",
+      "rowSpan",
+      "numRows"
+    );
+
+    return Number(coordY) + Number(rowSpan) !== Number(numRows);
+  }),
+
+  _dCondition: computed("coordX", function () {
+    return get(this, "coordX") !== 0;
+  }),
 
   init() {
     this._super();
+
     this.get("myWidth");
     this.get("myHeight");
     this.get("style");
@@ -33,7 +62,7 @@ export default Component.extend({
     "coordY",
     "columnSizes",
     "columnSizes.@each.size",
-    function() {
+    function () {
       if (
         this.get("coordX") === undefined ||
         this.get("coordY") === undefined ||
@@ -60,7 +89,7 @@ export default Component.extend({
     "coordY",
     "rowSizes",
     "rowSizes.@each.size",
-    function() {
+    function () {
       if (
         this.get("coordY") === undefined ||
         this.get("coordY") === undefined ||
@@ -82,23 +111,23 @@ export default Component.extend({
     }
   ),
 
-  style: computed("myWidth", "myHeight", function() {
+  style: computed("myWidth", "myHeight", function () {
     return {
       position: "relative",
       width: `${this.get("myWidth") * 100.0}%`,
-      height: `${this.get("myHeight") * 100.0}%`
+      height: `${this.get("myHeight") * 100.0}%`,
     };
   }),
 
-  htmlStyle: computed("style", function() {
-    return formatStyle(this.get('style'));
+  htmlStyle: computed("style", function () {
+    return formatStyle(this.get("style"));
   }),
 
-  sashBaseStyle: computed(function() {
+  sashBaseStyle: computed(function () {
     return {
       position: "absolute",
       "user-select": "none",
-      "z-index": "1000000"
+      "z-index": "1000000",
     };
   }),
 
@@ -106,14 +135,14 @@ export default Component.extend({
     "sashWidth",
     "sashDistance",
     "baseSashStyle",
-    function() {
+    function () {
       return formatStyle(
         Object.assign({}, this.get("sashBaseStyle"), {
           top: "-1px",
           left: `${this.get("sashDistance")}px`,
           right: `${this.get("sashDistance")}px`,
           height: `${this.get("sashWidth")}px`,
-          cursor: "row-resize"
+          cursor: "row-resize",
         })
       );
     }
@@ -123,14 +152,14 @@ export default Component.extend({
     "sashWidth",
     "sashDistance",
     "baseSashStyle",
-    function() {
+    function () {
       return formatStyle(
         Object.assign({}, this.get("sashBaseStyle"), {
           right: "-1px",
           top: `${this.get("sashDistance")}px`,
           bottom: `${this.get("sashDistance")}px`,
           width: `${this.get("sashWidth")}px`,
-          cursor: "col-resize"
+          cursor: "col-resize",
         })
       );
     }
@@ -140,14 +169,14 @@ export default Component.extend({
     "sashWidth",
     "sashDistance",
     "baseSashStyle",
-    function() {
+    function () {
       return formatStyle(
         Object.assign({}, this.get("sashBaseStyle"), {
           bottom: "-1px",
           left: `${this.get("sashDistance")}px`,
           right: `${this.get("sashDistance")}px`,
           height: `${this.get("sashWidth")}px`,
-          cursor: "row-resize"
+          cursor: "row-resize",
         })
       );
     }
@@ -157,14 +186,14 @@ export default Component.extend({
     "sashWidth",
     "sashDistance",
     "baseSashStyle",
-    function() {
+    function () {
       return formatStyle(
         Object.assign({}, this.get("sashBaseStyle"), {
           left: "-1px",
           top: `${this.get("sashDistance")}px`,
           bottom: `${this.get("sashDistance")}px`,
           width: `${this.get("sashWidth")}px`,
-          cursor: "col-resize"
+          cursor: "col-resize",
         })
       );
     }
@@ -220,5 +249,5 @@ export default Component.extend({
     }
 
     this.get("row.table.startResize")(columnOrRow, index);
-  }
+  },
 });

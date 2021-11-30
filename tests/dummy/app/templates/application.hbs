@@ -1,33 +1,37 @@
+{{! template-lint-disable self-closing-void-elements }}
 <h1>Ember Resizable Table</h1>
 
 <p>
-  Ember Resizable Table is a table component for Ember.js apps that allows users to resize the table's cells by dragging its borders. It's useful for creating split panels (i.e. for code editors).
+  Ember Resizable Table is a table component for Ember.js apps that allows users
+  to resize the table's cells by dragging its borders. It's useful for creating
+  split panels (i.e. for code editors).
 </p>
 
 <h2>Example: Simple Usage</h2>
 
 Use your mouse to interact with the table cells' borders.
-<br>
-<br>
+<br />
+<br />
 
 {{example-with-code name="simple-usage"}}
 
 <h2>Example: Initial Row/Column Sizes</h2>
 
-You can easily set initial sizes for rows and columns, by using the initialRowSizes, initialColumnSizes attributes.
-<br><br>
+You can easily set initial sizes for rows and columns, by using the
+initialRowSizes, initialColumnSizes attributes.
+<br /><br />
 
 {{example-with-code name="initial-row-column-sizes"}}
 
 <h2>Example: Event Listeners</h2>
 This example uses event listeners to check for changes to the table's layout.
-<br><br>
+<br /><br />
 
 <div class="event-listener-container">
   <div class="event-listener event-listener-on-size-changed"></div>
   onSizeChanged
 </div>
 
-<br>
+<br />
 
 {{example-with-code name="event-listeners"}}

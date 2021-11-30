@@ -1,7 +1,8 @@
-import Ember from "ember";
+import Component from "@ember/component";
+import { A } from "@ember/array";
 import layout from "../templates/components/resizable-table-row";
 
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   classNames: ["resizable-table-row"],
   tagName: "tr",
@@ -9,7 +10,7 @@ export default Ember.Component.extend({
 
   init() {
     this._super();
-    this.set("cells", Ember.A());
+    this.set("cells", A());
   },
 
   reLayout() {
@@ -26,5 +27,5 @@ export default Ember.Component.extend({
     this._super(...arguments);
     this.get("table.rows").removeObject(this);
     this.reLayout();
-  }
+  },
 });
