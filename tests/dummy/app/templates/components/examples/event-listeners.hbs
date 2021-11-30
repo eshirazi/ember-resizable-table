@@ -1,6 +1,8 @@
 {{#resizable-table
-      class="main-table"
-      onSizeChanged=(action eventTriggered 'on-size-changed') as |table|}}
+  class="main-table"
+  onSizeChanged=(action this.eventTriggered "on-size-changed")
+  as |table|
+}}
 
   {{#table.tr as |row|}}
     {{row.td class="col1"}}

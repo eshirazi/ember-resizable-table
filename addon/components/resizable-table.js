@@ -1,9 +1,10 @@
-import Ember from "ember";
+import { get, set } from "@ember/object";
+import { scheduleOnce, bind } from "@ember/runloop";
+import Component from "@ember/component";
+import { A } from "@ember/array";
 import layout from "../templates/components/resizable-table";
-import { clamp } from "ember-resizable-table/utils/clamp";
-import {getElementOffset} from "../utils/dom";
-
-const { get, set, Component, A: EmberArray, run } = Ember;
+import { clamp } from "../utils/clamp";
+import { getElementOffset } from "../utils/dom";
 
 export default Component.extend({
   layout,
@@ -22,15 +23,15 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    this._super(...arguments);
-    this.set('rows', EmberArray([]));
-    this.set('columnSizes', EmberArray([]));
-    this.set('rowSizes', EmberArray([]));
+
+    this.set("rows", A([]));
+    this.set("columnSizes", A([]));
+    this.set("rowSizes", A([]));
     this.set("coordToCell", {});
 
-    this.startResize = this.startResize.bind(this);
-    this.resizeMouseMove = this.resizeMouseMove.bind(this);
-    this.resizeMouseUp = this.resizeMouseUp.bind(this);
+    this.startResize = bind(this, this.startResize);
+    this.resizeMouseMove = bind(this, this.resizeMouseMove);
+    this.resizeMouseUp = bind(this, this.resizeMouseUp);
   },
 
   willDestroyElement() {
@@ -57,7 +58,7 @@ export default Component.extend({
         return false;
       }
 
-      deferredActions.push(function() {
+      deferredActions.push(function () {
         cell.set("coordX", x);
         cell.set("coordY", y);
       });
@@ -71,7 +72,7 @@ export default Component.extend({
       return true;
     }
 
-    let dupGrid = [...this.get("rows").map(row => [...row.get("cells")])];
+    let dupGrid = [...this.get("rows").map((row) => [...row.get("cells")])];
 
     for (let y = 0; y < numRows; y++) {
       for (let x = 0; x < numColumns; x++) {
@@ -97,7 +98,7 @@ export default Component.extend({
 
     this.set("coordToCell", coordToCell);
 
-    run.scheduleOnce("afterRender", this, function() {
+    scheduleOnce("afterRender", this, function () {
       while (deferredActions.length > 0) {
         const action = deferredActions.shift();
         action();
@@ -109,13 +110,16 @@ export default Component.extend({
 
   resetColumnSizes() {
     if (this.get("initialColumnSizes")) {
-      this.set("columnSizes", EmberArray(this.get("initialColumnSizes").map(item => ({size: item}))));
+      this.set(
+        "columnSizes",
+        A(this.get("initialColumnSizes").map((item) => ({ size: item })))
+      );
       return;
     }
 
     const count = this.get("numColumns");
     let size = 1.0 / count;
-    let sizes = EmberArray([]);
+    let sizes = A([]);
     for (let i = 0; i < count; i++) {
       sizes.pushObject({ size });
     }
@@ -124,14 +128,16 @@ export default Component.extend({
 
   resetRowSizes() {
     if (this.get("initialRowSizes")) {
-      this.set("rowSizes", EmberArray(this.get("initialRowSizes").map(item => ({size: item}))));
+      this.set(
+        "rowSizes",
+        A(this.get("initialRowSizes").map((item) => ({ size: item })))
+      );
       return;
     }
 
-
     const count = this.get("numRows");
     let size = 1.0 / count;
-    let sizes = EmberArray([]);
+    let sizes = A([]);
     for (let i = 0; i < count; i++) {
       sizes.pushObject({ size });
     }
@@ -205,7 +211,10 @@ export default Component.extend({
       set(columnSizes[index], "size", newSize);
     }
 
-    this.sendAction('onSizeChanged', columnOrRow, index, newSize);
+    const onSizeChanged = get(this, "onSizeChanged");
+    if (onSizeChanged) {
+      onSizeChanged(columnOrRow, index, newSize);
+    }
   },
 
   resizeMouseMove(event) {
@@ -239,5 +248,5 @@ export default Component.extend({
 
   resizeMouseUp() {
     this.uninstallHooks();
-  }
+  },
 });

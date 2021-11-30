@@ -1,14 +1,37 @@
-{{#unless (eq coordY 0)}}
-  <div style={{sashTopStyle}} onmousedown={{action sashClicked "top"}}></div>
-{{/unless}}
-{{#unless (eq (inc coordX colSpan) numColumns)}}
-  <div style={{sashRightStyle}} onmousedown={{action sashClicked "right"}}></div>
-{{/unless}}
-{{#unless (eq (inc coordY rowSpan) numRows)}}
-  <div style={{sashBottomStyle}} onmousedown={{action sashClicked "bottom"}}></div>
-{{/unless}}
-{{#unless (eq coordX 0)}}
-  <div style={{sashLeftStyle}} onmousedown={{action sashClicked "left"}}></div>
-{{/unless}}{{!--
-{{coordX}}, {{coordY}}<br>
---}}{{yield}}
+{{#if this._aCondition}}
+  {{! template-lint-disable no-invalid-interactive }}
+  {{! template-lint-disable no-inline-styles }}
+  <div
+    style={{this.sashTopStyle}}
+    onmousedown={{action this.sashClicked "top"}}
+  ></div>
+{{/if}}
+
+{{#if this._bCondition}}
+  {{! template-lint-disable no-invalid-interactive }}
+  {{! template-lint-disable no-inline-styles }}
+  <div
+    style={{this.sashRightStyle}}
+    onmousedown={{action this.sashClicked "right"}}
+  ></div>
+{{/if}}
+
+{{#if this._cCondition}}
+  {{! template-lint-disable no-invalid-interactive }}
+  {{! template-lint-disable no-inline-styles }}
+  <div
+    style={{this.sashBottomStyle}}
+    onmousedown={{action this.sashClicked "bottom"}}
+  ></div>
+{{/if}}
+
+{{#if this._dCondition}}
+  {{! template-lint-disable no-invalid-interactive }}
+  {{! template-lint-disable no-inline-styles }}
+  <div
+    style={{this.sashLeftStyle}}
+    onmousedown={{action this.sashClicked "left"}}
+  ></div>
+{{/if}}
+
+{{yield}}

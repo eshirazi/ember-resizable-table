@@ -1,8 +1,9 @@
 {{#resizable-table
-      class="main-table"
-      initialColumnSizes=(array 0.5 0.25 0.25)
-      initialRowSizes=(array 0.25 0.5 0.25) as |table|}}
-
+  class="main-table"
+  initialColumnSizes=this.initialColumnSizes
+  initialRowSizes=this.initialRowSizes
+  as |table|
+}}
   {{#table.tr as |row|}}
     {{row.td class="col1" rowSpan=2}}
     {{row.td class="col2"}}
