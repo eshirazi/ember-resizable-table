@@ -6,12 +6,12 @@
     "ember-addon"
   ],
   "license": "MIT",
-  "author": "",
+  "author": "Eran Shirazi",
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
+  "repository": "github:eshirazi/ember-resizable-table",
   "scripts": {
     "build": "ember build",
     "lint:hbs": "ember-template-lint .",
