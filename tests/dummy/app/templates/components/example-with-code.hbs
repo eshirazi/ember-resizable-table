@@ -1,2 +1,3 @@
-{{component (concat "examples/" name)}}
-{{code-snippet name=(concat name ".hbs")}}
+{{yield}}
+
+<CodeSnippet @name={{concat @name '.hbs'}} />

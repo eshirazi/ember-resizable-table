@@ -1,4 +1,6 @@
 {{! template-lint-disable self-closing-void-elements }}
+{{page-title 'Ember Resizable Table'}}
+
 <h1>Ember Resizable Table</h1>
 
 <p>
@@ -13,7 +15,9 @@ Use your mouse to interact with the table cells' borders.
 <br />
 <br />
 
-{{example-with-code name="simple-usage"}}
+<ExampleWithCode @name='simple-usage'>
+  <Examples::SimpleUsage />
+</ExampleWithCode>
 
 <h2>Example: Initial Row/Column Sizes</h2>
 
@@ -21,17 +25,21 @@ You can easily set initial sizes for rows and columns, by using the
 initialRowSizes, initialColumnSizes attributes.
 <br /><br />
 
-{{example-with-code name="initial-row-column-sizes"}}
+<ExampleWithCode @name='initial-row-column-sizes'>
+  <Examples::InitialRowColumnSizes />
+</ExampleWithCode>
 
 <h2>Example: Event Listeners</h2>
 This example uses event listeners to check for changes to the table's layout.
 <br /><br />
 
-<div class="event-listener-container">
-  <div class="event-listener event-listener-on-size-changed"></div>
+<div class='event-listener-container'>
+  <div class='event-listener event-listener-on-size-changed'></div>
   onSizeChanged
 </div>
 
 <br />
 
-{{example-with-code name="event-listeners"}}
+<ExampleWithCode @name='event-listeners'>
+  <Examples::EventListeners />
+</ExampleWithCode>
