@@ -1,36 +1,30 @@
+{{! template-lint-disable no-invalid-interactive }}
+{{! template-lint-disable no-down-event-binding }}
 {{#if this._aCondition}}
-  {{! template-lint-disable no-invalid-interactive }}
-  {{! template-lint-disable no-inline-styles }}
   <div
     style={{this.sashTopStyle}}
-    onmousedown={{action this.sashClicked "top"}}
+    {{on 'mousedown' (fn this.sashClicked 'top')}}
   ></div>
 {{/if}}
 
 {{#if this._bCondition}}
-  {{! template-lint-disable no-invalid-interactive }}
-  {{! template-lint-disable no-inline-styles }}
   <div
     style={{this.sashRightStyle}}
-    onmousedown={{action this.sashClicked "right"}}
+    {{on 'mousedown' (fn this.sashClicked 'right')}}
   ></div>
 {{/if}}
 
 {{#if this._cCondition}}
-  {{! template-lint-disable no-invalid-interactive }}
-  {{! template-lint-disable no-inline-styles }}
   <div
     style={{this.sashBottomStyle}}
-    onmousedown={{action this.sashClicked "bottom"}}
+    {{on 'mousedown' (fn this.sashClicked 'bottom')}}
   ></div>
 {{/if}}
 
 {{#if this._dCondition}}
-  {{! template-lint-disable no-invalid-interactive }}
-  {{! template-lint-disable no-inline-styles }}
   <div
     style={{this.sashLeftStyle}}
-    onmousedown={{action this.sashClicked "left"}}
+    {{on 'mousedown' (fn this.sashClicked 'left')}}
   ></div>
 {{/if}}
 
